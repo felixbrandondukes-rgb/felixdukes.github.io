@@ -210,7 +210,7 @@
 <section class="hero">
   <div class="wrap">
     <div class="eyebrow">Technical &amp; UX Writer — open to new work</div>
-    <h1 id="hero-line" aria-live="polite"></h1>
+    <h1 id="hero-line">Documentation people can actually use.</h1>
     <p class="sub">I turn dense systems into documentation and product copy people actually finish reading — API references, onboarding guides, and the small UI sentences that make software feel humane.</p>
     <div class="cta-row">
       <a href="#work" class="btn primary">See selected work</a>
@@ -319,29 +319,6 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
-
-  // Hero "tracked changes" line: system-speak revised into human language
-  const target = document.getElementById('hero-line');
-  const before = "The system will notify the user upon process completion.";
-  const after  = "You'll get an alert the moment it's done.";
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  function renderStatic(){
-    target.innerHTML = '<span class="ins">' + after + '</span>';
-  }
-
-  if(reduceMotion){
-    renderStatic();
-  } else {
-    // Step 1: show the "before" line fully struck through, pause, then reveal "after"
-    target.innerHTML = '<span class="del">' + before + '</span><span class="cursor"></span>';
-    setTimeout(function(){
-      target.innerHTML = '<span class="del">' + before + '</span> <span class="ins">' + after + '</span><span class="cursor"></span>';
-    }, 1400);
-    setTimeout(function(){
-      target.innerHTML = '<span class="ins">' + after + '</span><span class="cursor"></span>';
-    }, 3000);
-  }
 </script>
 
 </body>

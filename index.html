@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Felix Dukes — Technical &amp; UX Writer</title>
+<style>
+  :root{
+    --paper: #F6F5F1;
+    --paper-dim: #EDEBE4;
+    --ink: #1C2541;
+    --ink-soft: #4B5164;
+    --mark: #C1440E;
+    --teal: #3A6B72;
+    --line: #D8D5CB;
+    --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+    --serif: 'Source Serif Pro', Georgia, 'Times New Roman', serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  @font-face{ font-family:'fallback'; src:local('Georgia'); }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  ::selection{ background:var(--mark); color:var(--paper); }
+
+  /* ---------- Layout shell ---------- */
+  .wrap{ max-width:920px; margin:0 auto; padding:0 28px; }
+
+  header.site{
+    position:sticky; top:0; z-index:50;
+    background:rgba(246,245,241,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  header.site .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:64px;
+  }
+  .brand{
+    font-family:var(--mono); font-size:14px; letter-spacing:0.02em;
+    text-transform:uppercase;
+  }
+  .brand span{ color:var(--mark); }
+  nav.site-nav{ display:flex; gap:28px; }
+  nav.site-nav a{
+    font-family:var(--mono); font-size:12px; letter-spacing:0.06em;
+    text-transform:uppercase; color:var(--ink-soft);
+    position:relative; padding-bottom:2px;
+  }
+  nav.site-nav a:hover{ color:var(--ink); }
+  nav.site-nav a:focus-visible, a:focus-visible{ outline:2px solid var(--teal); outline-offset:3px; }
+
+  /* ---------- Hero ---------- */
+  .hero{ padding:110px 0 90px; border-bottom:1px solid var(--line); }
+  .hero .eyebrow{
+    font-family:var(--mono); font-size:12px; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--teal); margin-bottom:22px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .hero .eyebrow::before{
+    content:''; width:8px; height:8px; background:var(--mark); border-radius:50%;
+    display:inline-block;
+  }
+  .hero h1{
+    font-family:var(--serif); font-weight:600; font-size:clamp(32px,5vw,54px);
+    line-height:1.25; max-width:780px; letter-spacing:-0.01em;
+    min-height:calc(1.25em * 2);
+  }
+  .hero h1 .del{
+    color:#9a8f7f; text-decoration:line-through; text-decoration-color:var(--mark);
+    text-decoration-thickness:2px;
+  }
+  .hero h1 .ins{
+    color:var(--ink); background:linear-gradient(to bottom, transparent 62%, #cfe3df 62%);
+    padding:0 1px;
+  }
+  .hero h1 .cursor{
+    display:inline-block; width:2px; height:0.9em; background:var(--mark);
+    margin-left:2px; vertical-align:-0.1em; animation:blink 0.9s steps(1) infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  .hero p.sub{
+    margin-top:26px; max-width:560px; font-size:17px; color:var(--ink-soft);
+  }
+  .hero .cta-row{ margin-top:34px; display:flex; gap:16px; flex-wrap:wrap; }
+  .btn{
+    font-family:var(--mono); font-size:13px; letter-spacing:0.03em;
+    padding:12px 20px; border:1px solid var(--ink); border-radius:2px;
+    display:inline-block; transition:background 0.15s, color 0.15s;
+  }
+  .btn.primary{ background:var(--ink); color:var(--paper); }
+  .btn.primary:hover{ background:var(--mark); border-color:var(--mark); }
+  .btn.ghost:hover{ background:var(--ink); color:var(--paper); }
+
+  /* ---------- Section scaffolding ---------- */
+  section{ padding:80px 0; border-bottom:1px solid var(--line); }
+  section:last-of-type{ border-bottom:none; }
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between;
+    margin-bottom:44px; gap:20px; flex-wrap:wrap;
+  }
+  .section-head h2{
+    font-family:var(--serif); font-size:28px; font-weight:600;
+  }
+  .section-head .tag{
+    font-family:var(--mono); font-size:12px; color:var(--ink-soft);
+    letter-spacing:0.04em;
+  }
+
+  /* ---------- About ---------- */
+  .about-grid{
+    display:grid; grid-template-columns:1.3fr 1fr; gap:56px;
+  }
+  .about-grid p{ font-size:16px; color:var(--ink-soft); margin-bottom:16px; max-width:52ch; }
+  .about-grid p strong{ color:var(--ink); font-weight:600; }
+  .facts{ font-family:var(--mono); font-size:13px; }
+  .facts dt{ color:var(--teal); margin-top:16px; text-transform:uppercase; letter-spacing:0.05em; font-size:11px; }
+  .facts dt:first-child{ margin-top:0; }
+  .facts dd{ color:var(--ink); margin-top:4px; }
+
+  /* ---------- Work ---------- */
+  .work-grid{ display:grid; grid-template-columns:1fr 1fr; gap:2px; background:var(--line); }
+  .work-card{
+    background:var(--paper); padding:32px; display:flex; flex-direction:column; gap:14px;
+    transition:background 0.15s;
+  }
+  .work-card:hover{ background:var(--paper-dim); }
+  .work-card .kind{
+    font-family:var(--mono); font-size:11px; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--mark);
+  }
+  .work-card h3{ font-family:var(--serif); font-size:21px; font-weight:600; }
+  .work-card p{ font-size:14.5px; color:var(--ink-soft); flex-grow:1; }
+  .work-card .meta{
+    font-family:var(--mono); font-size:11.5px; color:var(--ink-soft);
+    display:flex; gap:10px; flex-wrap:wrap; padding-top:6px; border-top:1px dashed var(--line);
+  }
+  .work-card .meta span{ background:var(--paper-dim); padding:3px 8px; border-radius:2px; }
+  .work-card:hover .meta span{ background:#fff; }
+  .work-card a.view{
+    font-family:var(--mono); font-size:12px; color:var(--teal); margin-top:4px;
+  }
+  .work-card a.view:hover{ color:var(--mark); }
+
+  /* ---------- Capabilities (style-guide look) ---------- */
+  .cap-list{ font-family:var(--mono); font-size:14px; }
+  .cap-row{
+    display:grid; grid-template-columns:160px 1fr; gap:24px;
+    padding:18px 0; border-top:1px solid var(--line);
+    align-items:baseline;
+  }
+  .cap-row:last-child{ border-bottom:1px solid var(--line); }
+  .cap-row .label{ color:var(--mark); text-transform:uppercase; font-size:12px; letter-spacing:0.05em; }
+  .cap-row .desc{ color:var(--ink-soft); font-family:var(--sans); font-size:15px; }
+
+  /* ---------- Contact ---------- */
+  .contact{ text-align:left; }
+  .contact h2{ font-family:var(--serif); font-size:32px; font-weight:600; max-width:520px; }
+  .contact p{ color:var(--ink-soft); margin-top:14px; max-width:480px; }
+  .contact .links{ margin-top:30px; display:flex; gap:14px; flex-wrap:wrap; }
+
+  footer{ padding:32px 0; }
+  footer .wrap{
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:var(--mono); font-size:11.5px; color:var(--ink-soft);
+    flex-wrap:wrap; gap:10px;
+  }
+
+  @media (max-width:720px){
+    nav.site-nav{ display:none; }
+    .about-grid{ grid-template-columns:1fr; }
+    .work-grid{ grid-template-columns:1fr; }
+    .cap-row{ grid-template-columns:1fr; gap:4px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .cursor{ animation:none; }
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <div class="brand">felix<span>·</span>dukes</div>
+    <nav class="site-nav">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Technical &amp; UX Writer — open to new work</div>
+    <h1 id="hero-line" aria-live="polite"></h1>
+    <p class="sub">I turn dense systems into documentation and product copy people actually finish reading — API references, onboarding guides, and the small UI sentences that make software feel humane.</p>
+    <div class="cta-row">
+      <a href="#work" class="btn primary">See selected work</a>
+      <a href="#contact" class="btn ghost">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div>
+      <p><strong>I've spent over 20 years guiding documentation through every stage of a project's lifecycle</strong> — authoring, formatting, review coordination, revision control, and controlled distribution — working closely with subject matter experts across Engineering, Product, and Quality.</p>
+      <p>I've managed an array of technical documents, from API specifications to BI analytics documentation, translating technical, operational, engineering, and regulatory information into manuals, procedures, checklists, and training materials that are clear, accurate, and usable by the people who depend on them.</p>
+      <p>I bring in-depth experience with both Agile and Waterfall development lifecycles, structured authoring using DITA XML in XMetaL and easyDITA, and Component Content Management System (CCMS) tools — and a close understanding of how document control keeps teams working from the correct, approved, current version, especially when updates stem from engineering changes, regulatory requirements, or lessons learned.</p>
+    </div>
+    <dl class="facts">
+      <dt>Focus</dt>
+      <dd>Documentation lifecycle · UX writing · technical publications</dd>
+      <dt>Tools</dt>
+      <dd>XMetaL, Jorsek easyDITA, Vasant (CCMS), SDL (CCMS), Adobe Technical Communications Suite, Microsoft Office Suite</dd>
+      <dt>Also uses</dt>
+      <dd>Visio, Draw.io, Balsamiq Mockups, Atlassian (Confluence, Jira), Git, Markdown</dd>
+      <dt>Methodologies</dt>
+      <dd>Agile &amp; Waterfall</dd>
+      <dt>Based in</dt>
+      <dd>Available for remote &amp; contract work</dd>
+      <dt>Currently</dt>
+      <dd>Open to new projects</dd>
+    </dl>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Selected work</h2>
+      <div class="tag">— placeholders, swap in your own case studies —</div>
+    </div>
+  </div>
+  <div class="wrap" style="padding:0 28px;">
+    <div class="work-grid">
+      <div class="work-card">
+        <div class="kind">API Documentation</div>
+        <h3>Verisys Unified API — Monitoring Services Reference Guide</h3>
+        <p>Reference documentation for the Monitoring Services endpoints of the Verisys Unified API.</p>
+        <div class="meta"><span>API Reference</span><span>Monitoring Services</span></div>
+        <a class="view" href="https://drive.google.com/file/d/1d6tsIcghOB5XDLvLNtvWfOKGWE-I2j0e/view?usp=drive_link" target="_blank" rel="noopener">View document →</a>
+      </div>
+      <div class="work-card">
+        <div class="kind">Onboarding Guide</div>
+        <h3>New User Setup Flow</h3>
+        <p>Rewrote a five-step setup guide that had a high drop-off rate, replacing internal jargon with task-based language mapped to what the user sees on screen.</p>
+        <div class="meta"><span>Guide</span><span>User testing</span></div>
+        <a class="view" href="#">View case study →</a>
+      </div>
+      <div class="work-card">
+        <div class="kind">UX Writing / Microcopy</div>
+        <h3>Error &amp; Empty-State Audit</h3>
+        <p>Audited every error, empty, and loading state across a dashboard product and rewrote them to explain what happened and what to do next.</p>
+        <div class="meta"><span>UX copy</span><span>Design system</span></div>
+        <a class="view" href="#">View case study →</a>
+      </div>
+      <div class="work-card">
+        <div class="kind">Migration Guide</div>
+        <h3>v1 → v2 SDK Migration</h3>
+        <p>Wrote a breaking-changes migration guide with a diff-style before/after for every changed method, reducing support tickets during rollout.</p>
+        <div class="meta"><span>SDK</span><span>Changelog</span></div>
+        <a class="view" href="#">View case study →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="capabilities">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Capabilities</h2>
+    </div>
+    <div class="cap-list">
+      <div class="cap-row"><div class="label">Docs</div><div class="desc">API references, developer guides, SDK &amp; CLI documentation, changelogs.</div></div>
+      <div class="cap-row"><div class="label">UX writing</div><div class="desc">In-product copy, error states, onboarding flows, notifications.</div></div>
+      <div class="cap-row"><div class="label">Process</div><div class="desc">Style guides, content models, docs-as-code workflows, review with engineering.</div></div>
+      <div class="cap-row"><div class="label">Research</div><div class="desc">Usability review of existing copy, stakeholder interviews, terminology audits.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap contact">
+    <h2>Have something that needs clearer words?</h2>
+    <p>I'm currently taking on new projects — reach out with what you're working on and I'll follow up within a couple of days.</p>
+    <div class="links">
+      <a href="mailto:felix.brandon.dukes@gmail.com" class="btn primary">felix.brandon.dukes@gmail.com</a>
+      <a href="https://www.linkedin.com/in/felixdukes" target="_blank" rel="noopener" class="btn ghost">LinkedIn</a>
+      <a href="#" class="btn ghost">Résumé (PDF)</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="year"></span> Felix Dukes</div>
+    <div>Set in Source Serif &amp; Inter</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Hero "tracked changes" line: system-speak revised into human language
+  const target = document.getElementById('hero-line');
+  const before = "The system will notify the user upon process completion.";
+  const after  = "You'll get an alert the moment it's done.";
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function renderStatic(){
+    target.innerHTML = '<span class="ins">' + after + '</span>';
+  }
+
+  if(reduceMotion){
+    renderStatic();
+  } else {
+    // Step 1: show the "before" line fully struck through, pause, then reveal "after"
+    target.innerHTML = '<span class="del">' + before + '</span><span class="cursor"></span>';
+    setTimeout(function(){
+      target.innerHTML = '<span class="del">' + before + '</span> <span class="ins">' + after + '</span><span class="cursor"></span>';
+    }, 1400);
+    setTimeout(function(){
+      target.innerHTML = '<span class="ins">' + after + '</span><span class="cursor"></span>';
+    }, 3000);
+  }
+</script>
+
+</body>
+</html>

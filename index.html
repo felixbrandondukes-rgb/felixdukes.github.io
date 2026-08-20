@@ -261,9 +261,12 @@
         <div class="considerations">
           <h4>Considerations (RESTful API Pain Points)</h4>
           <ul>
-            <li>Wide range of API consumer skill levels, from first-time integrators to advanced partners</li>
-            <li>Kept pace with frequent endpoint changes without breaking existing documentation</li>
-            <li>Balanced technical precision with readability for non-engineering stakeholders</li>
+            <li>Stale or incomplete docs: OpenAPI/Swagger specs drifting out of sync with actual implementation.</li>
+            <li>Poor error messaging: Generic 400/500 responses without enough detail to debug (missing error codes, unclear validation messages.</li>
+            <li>Rate limiting communication: Clients not knowing they're about to be throttled, or unclear retry-after guidance.</li>
+            <li>Query Depth: How deeply you are digging into related, hierarchical data fields or resources starting from the root request.</li>
+            <li>Versioning strategy conflicts: URL versioning (/v2/...) vs header versioning vs no versioning at all, and how to deprecate old versions without breaking clients.</li>
+            <li>The list goes on......</li>
           </ul>
         </div>
       </div>

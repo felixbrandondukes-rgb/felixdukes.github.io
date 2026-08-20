@@ -132,6 +132,17 @@
   .facts dt:first-child{ margin-top:0; }
   .facts dd{ color:var(--ink); margin-top:4px; }
 
+    /* ---------- AI & the Technical Communicator ---------- */
+  .ai-grid{
+    display:grid; grid-template-columns:1.3fr 1fr; gap:56px;
+  }
+  .ai-grid p{ font-size:16px; color:var(--ink-soft); margin-bottom:16px; max-width:56ch; }
+  .ai-grid p strong{ color:var(--ink); font-weight:600; }
+  .ai-list{ font-family:var(--mono); font-size:13px; }
+  .ai-list dt{ color:var(--teal); margin-top:16px; text-transform:uppercase; letter-spacing:0.05em; font-size:11px; }
+  .ai-list dt:first-child{ margin-top:0; }
+  .ai-list dd{ color:var(--ink); margin-top:4px; font-family:var(--sans); font-size:14.5px; }
+
   /* ---------- Work ---------- */
   .work-grid{ display:grid; grid-template-columns:1fr 1fr; gap:2px; background:var(--line); }
   .work-card{
@@ -257,6 +268,28 @@
       <dd>Available for remote &amp; contract work</dd>
       <dt>Currently</dt>
       <dd>Open to new projects</dd>
+    </dl>
+  </div>
+</section>
+  <section id="ai">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>AI and the Technical Communicator</h2>
+      <div class="tag">— where the role is headed —</div>
+    </div>
+  </div>
+  <div class="wrap ai-grid">
+    <div>
+      <p><strong>AI hasn't replaced the technical writer's judgment — it's changed where that judgment gets spent.</strong> Drafting boilerplate, reformatting for a new output channel, and summarizing source material can move faster with AI in the loop. What still requires a human: verifying accuracy against the actual system, resolving ambiguity with SMEs, structuring content so it's reusable and findable, and deciding what a reader needs to know versus what's merely available.</p>
+      <p>Structured authoring practices — single-sourcing, DITA topic types, controlled terminology, metadata — matter more in an AI-assisted workflow, not less. Well-modeled content is what makes AI output (and search, and chatbots trained on your docs) reliable instead of a guessing game. Part of the technical communicator's job now is making sure the source content is clean enough for a model to use responsibly.</p>
+    </div>
+    <dl class="ai-list">
+      <dt>Where AI helps</dt>
+      <dd>First-draft generation, style/consistency checks, terminology audits, summarizing long specs, translating between reading levels</dd>
+      <dt>Where it doesn't</dt>
+      <dd>Verifying technical accuracy, SME judgment calls, regulatory sign-off, knowing what to leave out</dd>
+      <dt>My approach</dt>
+      <dd>Use AI to accelerate the mechanical parts of the workflow; keep human review, structure, and accountability on everything that ships</dd>
     </dl>
   </div>
 </section>
